@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .button {
+            background-color: #696969;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+            opacity: 0.8;
+            transition: 0.25s;
+        }
+        .button:hover {
+            opacity: 1;
+            box-shadow: 0 15px 20px 0 rgba(0,0,0,0.25),
+                0 10px 15px 0 rgba(0,0,0,0.25);
+        }
+        table {
+            border: 3px solid black;
+            border-collapse: collapse;
+            width: 40%;
+            text-align: center;
+            align: center;
+        }
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: center;
+        }
+        tr:hover {background-color: #e5e5e5;}
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            background-color: #a0a0a0;
+            padding: 3px;
+            width: 40%;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        var $ = function(id) {
+            return document.getElementById(id);
+        }
+        var getFloatInput = function(line, onlyPositive) {
+            while (true) {
+                var final = prompt(line);
+                if (final == null) { //user pressed cancel or esc
+                    return null;
+                }
+                var finalFloat = parseFloat(final);
+                if (onlyPositive) {
+                    if (isNaN(finalFloat) || finalFloat <= 0) {
+                        alert("Please input a positive number.");
+                    } else {
+                        return finalFloat;
+                    }
+                } else {
+                    if (isNaN(finalFloat) || finalFloat < 0) {
+                        alert("Please input a nonnegative number.");
+                    } else {
+                        return finalFloat;
+                    }
+                }
+            }
+        }
+        //returns false if user presses cancel/esc
+        //otherwise changes html and returns true
+        var runBMICalculation = function() {
+            $("calcBMIText").innerHTML = "Click the " +
+                "button above to calculate your BMI.";
+            var weight = getFloatInput("What is your " +
+                "weight in pounds?", true);
+            if (weight == null) {
+                return false; //user pressed cancel/esc
+            }
+            alert("Please enter your height in both" +
+                " feet and inches in the following questions.");
+            while (true) {
+                var heightFeet = getFloatInput("How many feet are" +
+                    " in your height?");
+                if (heightFeet == null) {
+                    return false;
+                }
+                var heightInches = getFloatInput("How many leftover " +
+                    "inches not included in the number of feet " +
+                    "that you entered are in your height?");
+                if (heightInches == null) {
+                    return false;
+                }
+                var totalInches = (12 * heightFeet) + heightInches;
+                if (totalInches == 0) {
+                    alert("You can't be zero feet and zero inches tall.");
+                } else {
+                    break;
+                }
+            }
+            var bmi = (weight * 703) / (totalInches * totalInches);
+            $("calcBMIText").innerHTML = "Your BMI is: " +
+                ((bmi).toFixed(2)).toString();
+            return true;
+        }
+        window.onload = function () {
+            $("calculate").onclick = runBMICalculation;
+        }
+    </script>
+</head>
+<body>
+    <div align="center">
+        <h1>Lab 5: Scripting the DOM with a JS BMI Calculator</h1><br>
+        <p style="font-size:18px;">blahblahblah<br>some text<br>more text about bmi stuff<br>blahblahblah</p>
+        <p>
+            <br><br>
+            <img src="img_the_scream.jpg" width="220" height="277" alt="The Scream">
+            <br><br>
+        </p>
+        <button class="button" id="calculate">Calculate BMI</button>
+        <h3 id="calcBMIText">Click the button above to calculate your BMI.</h3>
+        <br>
+        <p style="font-size:18px;"><caption>BMI Weight Categories</caption></p>
+        <table>
+            <tr><th>BMI</th><th>Category</th></tr>
+            <tr><td>less than 18.5</td><td>Underweight</td></tr>
+            <tr><td>18.5 to 25</td><td>Normal</td></tr>
+            <tr><td>25 to 30</td><td>Overweight</td></tr>
+            <tr><td>above 30</td><td>Obese</td></tr>
+        </table><br>
+        <p style="display:inline">
+            If you liked this calculator, you may want to check out our
+        </p>
+        <a href="https://www.active.com/fitness/calculators/bodyfat">
+            Body Fat Percentage
+        </a>
+        <p style="display:inline"> and our </p>
+        <a href="https://www.mdapp.co/relative-fat-mass-rfm-calculator-432/">
+            Relative Fat Mass
+        </a>
+        <p style="display:inline">calculators.</p>
+    </div>
+</body>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Lab2: Data Types and Variables</h1>
+  <p id="expressions"></p>
+</body>
+
+<script>
+  /*
+  Lab2: Data Types and Variables
+  My family name is Student
+  My Student ID is 12345678
+  The value of myId is 36
+  The number of characters in my last name is 7
+  Expression #1 -------------: 18
+  Expression #2 -------------: 0
+  Expression #3 -------------: 27
+  Expression #4 -------------: 43
+  Expression #5 -------------: 7
+  Expression #6 -------------: 8
+  Expression #7 -------------: false
+  Expression #8 -------------: true
+  Expression #9 -------------: true
+  */
+  var studentID = prompt("What is your studentID?");
+  var lastName = prompt("What is your family name?");
+
+  var myId = 0;
+  for (var i = 0; i < studentID.length; i++) {
+    myId += parseInt(studentID[i]);
+  }
+  var nLet = lastName.length;
+  var expressionsHtml = "My family name is " + lastName + "<br>" +
+    "My Student ID is " + studentID + "<br>" +
+    "The value of myId is " + myId.toString() + "<br>" +
+    "The number of characters in my last name is " +
+    nLet.toString() + "<br>";
+  var expressions = [];
+  expressions.push(myId / 2);
+  expressions.push(myId % 2);
+  expressions.push(0);
+  for (var i = 2; i <= nLet; i++) {
+    expressions[2] += i;
+  }
+  expressions.push(myId + nLet);
+  expressions.push(nLet++);
+  expressions.push(nLet * 1);
+  expressions.push(Boolean((nLet % nLet) && (myId * myId)));
+  expressions.push(Boolean(0 || (myId / 0)));
+  /*
+  Here, I use Boolean()
+  This is different from what is in the lab (it's false rather than true)
+  However, I wasn't able to find a way to make it show up as false
+  */
+  expressions.push(Boolean(1 || (myId / 0)));
+
+  for (var i = 0; i <= 8; i++) {
+    expressionsHtml += "Expression #" + (i+1).toString() +" -------------: " +
+      expressions[i].toString() + "<br>";
+  }
+
+  document.getElementById('expressions').innerHTML = expressionsHtml;
+</script>
+</html>
